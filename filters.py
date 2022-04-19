@@ -70,6 +70,90 @@ class AttributeFilter:
 
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
+    
+class DateFilter(AttributeFilter):
+    """A Subclass of AttributeFilter to filter CloseApproach objects by date."""
+    @classmethod
+    def get(cls, approach):
+        """Get date time of interest of close approach."""
+        return approach.time.date()
+
+
+class DistanceFilter(AttributeFilter):
+    """A Subclass of AttributeFilter to filter approach objects by distance."""
+    @classmethod
+    def get(cls, approach):
+        """
+        Get distance of interest from close approach.
+
+        args
+        ----------
+        cls: self
+        approach: str
+
+        Returns
+        -------
+        Approach's distance
+        """
+        return approach.distance
+
+
+class VelocityFilter(AttributeFilter):
+    """A Subclass of AttributeFilter to filter approach objects by velocity"""
+    @classmethod
+    def get(cls, approach):
+        """
+        Get an velocity of interest from close approach.
+
+        args
+        ----------
+        cls: self
+        approach: str
+
+        Returns
+        -------
+        Approach's velocity
+        """
+        return approach.velocity
+
+
+class DiameterFilter(AttributeFilter):
+    """Subclass of AttributeFilter to filter approach objects by diameter."""
+    @classmethod
+    def get(cls, approach):
+        """
+        Get an diameter of interest from neo.
+
+        args
+        ----------
+        cls: self
+        approach: str
+
+        Returns
+        -------
+        Approach's diameter
+        """
+        return approach.neo.diameter
+
+
+class HazardousFilter(AttributeFilter):
+    """A Subclass to filter CloseApproach objects by if it's hazardous."""
+    @classmethod
+    def get(cls, approach):
+        """
+        Get hazardous of interest from neo.
+
+        args
+        ----------
+        cls: self
+        approach: str
+
+        Returns
+        -------
+        Approach's hazardous
+        """
+        return approach.neo.hazardous
+
 
 
 def create_filters(
@@ -109,7 +193,29 @@ def create_filters(
     :return: A collection of filters for use with `query`.
     """
     # TODO: Decide how you will represent your filters.
-    return ()
+    filter_rep = []
+    
+    if date is not None:
+        filter_rep.append(DateFilter(operator.eq, date))
+    if start_date is not None:
+        filter_rep.append(DateFilter(operator.ge, start_date))
+    if end_date is not None:
+        filter_rep.append(DateFilter(operator.le, end_date))
+    if distance_min is not None:
+        filter_rep.append(DistanceFilter(operator.ge, distance_min))
+    if distance_max is not None:
+        filter_rep.append(DistanceFilter(operator.le, distance_max))
+    if velocity_min is not None:
+        filter_rep.append(VelocityFilter(operator.ge, velocity_min))
+    if velocity_max is not None:
+        filter_rep.append(VelocityFilter(operator.le, velocity_max))
+    if diameter_min is not None:
+        filter_rep.append(DiameterFilter(operator.ge, diameter_min))
+    if diameter_max is not None:
+        filter_rep.append(DiameterFilter(operator.le, diameter_max))
+    if hazardous is not None:
+        filter_rep.append(HazardousFilter(operator.eq, hazardous))
+    return filter_rep
 
 
 def limit(iterator, n=None):
@@ -122,4 +228,6 @@ def limit(iterator, n=None):
     :yield: The first (at most) `n` values from the iterator.
     """
     # TODO: Produce at most `n` values from the given iterator.
+    if n:
+        return [x for y, x in enumerate(iterator) if y < n]
     return iterator
