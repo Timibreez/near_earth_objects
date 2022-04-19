@@ -45,15 +45,9 @@ class NearEarthObject:
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
         self.designation = info['designation']
-        if info['name']:
-            self.name = info['name']
-        else:
-            self.name =  None
-        if info['diameter']:
-            self.diameter = float(info['diameter'])
-        else:
-            self.diameter = float('nan')
-        self.hazardous = info['hazardous'] == 'y'
+        self.name = info['name'] if info['name'] else None
+        self.diameter = float(info['diameter'] if info['diameter'] else 'nan')
+        self.hazardous = info['hazardous'] == 'Y'
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []

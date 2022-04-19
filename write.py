@@ -33,7 +33,7 @@ def write_to_csv(results, filename):
         writer = csv.DictWriter(out_file, fieldnames=fieldnames)
         writer.writeheader()
         for item in results:
-            writer.writerow({**item.serializer(), **item.neo.serializer()})
+            writer.writerow(item.serializer())
 
 
 def write_to_json(results, filename):
