@@ -283,6 +283,7 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    if n:
-        return [x for y, x in enumerate(iterator) if y < n]
-    return iterator
+    for i, x in enumerate(iterator):
+        yield x
+        if i + 1 == n:
+            break
