@@ -86,7 +86,7 @@ class NearEarthObject:
         return {
             'designation': self.designation,
             'name': self.name,
-            'diameter': self.diameter,
+            'diameter_km': self.diameter,
             'potentially_hazardous': self.hazardous
         }
 
@@ -162,7 +162,7 @@ class CloseApproach:
     def serializer(self):
         """Serializing the attributes of CloseApproaches"""
         return {
-            "datetime": self.time_str,
-            "distance": self.distance,
-            "velocity": self.velocity
+            'datetime_utc': self.time_str,
+            'distance_au': self.distance,
+            'velocity_km_s': self.velocity
         }
