@@ -41,6 +41,7 @@ def write_to_csv(results, filename):
 
 def write_to_json(results, filename):
     """Write an iterable of `CloseApproach` objects to a JSON file.
+
     The precise output specification is in `README.md`.
     Roughly, the output is a
     list containing dictionaries, each mapping `CloseApproach` attributes to
@@ -50,7 +51,6 @@ def write_to_json(results, filename):
     :param filename: A Path-like object points
     to where the data should be saved.
     """
-
     populate_approach = []
     for item in results:
         app = item.serializer()

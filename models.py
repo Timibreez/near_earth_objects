@@ -54,7 +54,6 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-
         if self.hazardous:
             initials = ''
         else:
@@ -63,14 +62,18 @@ class NearEarthObject:
                f'diameter is {initials} potentially hazardous.'
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable
-        string representation of this object."""
+        """
+        Return `repr(self)`.
+        
+        a computer-readable
+        string representation of this object.
+        """
         return f"NearEarthObject(designation={self.designation!r}, " \
                f"name={self.name!r}, diameter={self.diameter:.3f}, " \
                f"hazardous={self.hazardous!r})"
 
     def serializer(self):
-        """Serializing the attributes of Near Earth Objects"""
+        """Serialize the attributes of Near Earth Objects."""
         return {
             'designation': self.designation,
             'name': self.name,
@@ -119,7 +122,8 @@ class CloseApproach:
 
     @property
     def time_str(self):
-        """Return a formatted representation of
+        """Return a formatted representation of.
+
         this `CloseApproach`'s approach time.
 
         The value in `self.time` should be a
@@ -144,14 +148,18 @@ class CloseApproach:
                f'{self.distance} and a velocity {self.velocity}km/s'
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable
-        string representation of this object."""
+        """
+        Return `repr(self)`.
+        
+        a computer-readable
+        string representation of this object.
+        """
         return f"CloseApproach(time={self.time_str!r}, " \
                f"distance={self.distance:.2f}, " \
                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
 
     def serializer(self):
-        """Serializing the attributes of CloseApproaches"""
+        """Serialize the attributes of CloseApproaches."""
         return {
             'datetime_utc': self.time_str,
             'distance_au': self.distance,
